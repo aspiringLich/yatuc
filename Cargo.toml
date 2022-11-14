@@ -1,5 +1,5 @@
 [package]
-name = "yatuc"
+name = "yauc"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,6 +10,7 @@ edition = "2021"
 hashbrown = "0.13.1"
 parking_lot = "0.12.1"
 bitvec = "1.0.1"
+# crossbeam?
 
 # macro stuff
 syn = "1.0.103"

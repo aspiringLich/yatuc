@@ -1,8 +1,15 @@
 #![feature(default_free_fn)]
 
-extern crate hashbrown;
-extern crate parking_lot;
-extern crate bitvec;
+pub extern crate hashbrown;
+pub extern crate parking_lot;
+pub extern crate bitvec;
+pub extern crate anyhow;
+pub extern crate colorful;
+pub extern crate chrono;
+pub extern crate autodefault;
+pub extern crate num_enum;
+pub extern crate pretty_assertions;
+pub extern crate tracing;
 
 pub mod prelude;
 
