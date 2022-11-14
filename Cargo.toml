@@ -28,3 +28,4 @@ chrono = "0.4.23"
 # nice to have
 autodefault = "2.0.0"
 num_enum = "0.5.7"
+derivative = "2.2.0"

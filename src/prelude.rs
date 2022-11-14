@@ -6,3 +6,4 @@ pub use anyhow::{Result, anyhow, bail, ensure};
 
 pub use hashbrown::{HashMap, HashSet};
 pub use bitvec::{bitarr, bitbox, bits, bitvec};
+pub use derivative::Derivative;
