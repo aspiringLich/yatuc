@@ -13,8 +13,8 @@ bitvec = "1.0.1"
 # crossbeam?
 
 # macro stuff
-syn = "1.0.103"
-proc-macro2 = "1.0.47"
+# syn = "1.0.103"
+# proc-macro2 = "1.0.47"
 
 # error handling and stuff
 anyhow = "1.0.66"
