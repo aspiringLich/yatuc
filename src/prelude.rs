@@ -1,6 +1,10 @@
 pub use anyhow::{anyhow, bail, ensure, Result};
-#[cfg(test)]
-pub use pretty_assertions::{assert_eq, assert_ne, assert_str_eq};
+pub use colorful::core::color_string::CString as ColString;
+pub use colorful::Color as Color256;
+pub use colorful::HSL as TextHSL;
+pub use colorful::RGB as TextRGB;
+pub use colorful::{self, Colorful, ExtraColorInterface};
+pub use pretty_assertions as pretty;
 
 pub use bitvec::{bitarr, bitbox, bits, bitvec};
 pub use default::default;
