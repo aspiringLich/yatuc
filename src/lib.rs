@@ -12,6 +12,7 @@ pub extern crate tracing;
 pub extern crate wyz;
 
 pub mod prelude;
+pub mod style;
 
 // pub fn add(left: usize, right: usize) -> usize {
 //     left + right
