@@ -12,7 +12,7 @@ use colorful::*;
 /// // you can color text
 /// assert_eq!(style!("gaming", red), format!("{}", "gaming".red()));
 /// // you can have a `format!` be colored
-/// assert_eq!(style!(("n: {}", 3), red), format!("{}", format!("n: {}", 3)));
+/// assert_eq!(style!(("n: {}", 3), red), format!("{}", format!("n: {}", 3).red()));
 /// ```
 /// 
 /// # Arguments
@@ -40,7 +40,7 @@ use colorful::*;
 #[macro_export]
 macro_rules! style {
     // base case: 
-    ($str:expr) => {
+    ($str:expr $(,)*) => {
         format!("{}", $str)
     };
     // case where str is a format string
@@ -49,7 +49,7 @@ macro_rules! style {
     };
 
     // case with 1 method & and an argument and also more
-    ($str:expr, $method:ident) => {
+    ($str:expr, $method:ident $(,)*) => {
         style!($str.$method())
     };
     ($str:expr, $method:ident, $($tail:tt)*) => {
@@ -57,7 +57,7 @@ macro_rules! style {
     };
     
     // case with 1 method & an argument
-    ($str:expr, $method:ident($arg:ident)) => {
+    ($str:expr, $method:ident($arg:ident) $(,)*) => {
         style!($str.$method(Color::$arg))
     };
     ($str:expr, $method:ident($arg:ident), $($tail:tt)*) => {
@@ -65,7 +65,7 @@ macro_rules! style {
     };
 
     // case with rgb
-    ($str:expr, rgb($r:expr, $g:expr, $b:expr)) => {
+    ($str:expr, rgb($r:expr, $g:expr, $b:expr) $(,)*) => {
         style!($str.color(RGB::new($r, $g, $b)))
     };
     ($str:expr, rgb($r:expr, $g:expr, $b:expr), $($tail:tt)*) => {
@@ -73,7 +73,7 @@ macro_rules! style {
     };
 
     // case with bg_rgb
-    ($str:expr, bg_rgb($r:expr, $g:expr, $b:expr)) => {
+    ($str:expr, bg_rgb($r:expr, $g:expr, $b:expr) $(,)*) => {
         style!($str.bg_color(RGB::new($r, $g, $b)))
     };
     ($str:expr, bg_rgb($r:expr, $g:expr, $b:expr), $($tail:tt)*) => {
@@ -81,7 +81,7 @@ macro_rules! style {
     };
 
     // case with hsl
-    ($str:expr, hsl($h:expr, $s:expr, $l:expr)) => {
+    ($str:expr, hsl($h:expr, $s:expr, $l:expr) $(,)*) => {
         style!($str.color(HSL::new($h, $s, $l)))
     };
     ($str:expr, hsl($h:expr, $s:expr, $l:expr), $($tail:tt)*) => {
@@ -89,7 +89,7 @@ macro_rules! style {
     };
 
     // case with bg_hsl
-    ($str:expr, bg_hsl($h:expr, $s:expr, $l:expr)) => {
+    ($str:expr, bg_hsl($h:expr, $s:expr, $l:expr) $(,)*) => {
         style!($str.bg_color(HSL::new($h, $s, $l)))
     };
     ($str:expr, bg_hsl($h:expr, $s:expr, $l:expr), $($tail:tt)*) => {
@@ -98,7 +98,7 @@ macro_rules! style {
 }
 
 #[test]
-fn test_color_str() {
+fn test_style() {
     assert_eq!(
         style!("gaming"),
         format!("{}", "gaming"),
@@ -117,6 +117,11 @@ fn test_color_str() {
     assert_eq!(
         style!(("gaming {}", "is fun"), red, bg_blue),
         format!("{}", format!("gaming {}", "is fun").red().bg_blue()),
+        "test with format string"
+    );
+    assert_eq!(
+        style!(("n: {}", 3), red), 
+        format!("{}", format!("n: {}", 3).red()), 
         "test with format string"
     );
     assert_eq!(
