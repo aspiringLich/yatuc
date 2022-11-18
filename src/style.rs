@@ -44,8 +44,12 @@ macro_rules! style {
         format!("{}", $str)
     };
     // case where str is a format string
-    (($($arg:tt)*), $($tail:tt)*) => {
-        style!(format!($($arg)*), $($tail)*)
+    (($pred:expr), $($tail:tt)*) => {
+        style!(format!("{}", $pred), $($tail)*)
+    };
+    // case where str is a format string
+    (($pred:expr, $($arg:tt)*), $($tail:tt)*) => {
+        style!(format!($pred, $($arg)*), $($tail)*)
     };
 
     // case with 1 method & and an argument and also more
@@ -122,6 +126,11 @@ fn test_style() {
     assert_eq!(
         style!(("n: {}", 3), red), 
         format!("{}", format!("n: {}", 3).red()), 
+        "test with format string"
+    );
+    assert_eq!(
+        style!((3), red), 
+        format!("{}", format!("{}", 3).red()), 
         "test with format string"
     );
     assert_eq!(
