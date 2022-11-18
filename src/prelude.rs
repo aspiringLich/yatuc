@@ -8,4 +8,5 @@ pub use num_enum::{FromPrimitive, IntoPrimitive};
 pub use wyz::fmt::{FmtDisplay, FmtList};
 pub use colorful;
 
+pub use crate::log::*;
 pub use crate::style::*;

@@ -57,7 +57,7 @@ macro_rules! info {
         {
             use colorful::Colorful;
             style_print!(
-                (("[{}]", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
+                (("[{}] ", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
                 ("INFO:", black, bg_white),
                 (" "),
                 $($arg),*,
@@ -85,7 +85,7 @@ macro_rules! warn {
         {
             use colorful::Colorful;
             style_print!(
-                (("[{}]", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
+                (("[{}] ", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
                 ("WARN:", black, bg_yellow),
                 (" "),
                 $($arg),*,
@@ -113,7 +113,7 @@ macro_rules! error {
         {
             use colorful::Colorful;
             style_print!(
-                (("[{}]", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
+                (("[{}] ", chrono::Utc::now().format("%y/%m/%d %H:%M:%S%.3f")), green),
                 ("ERROR:", black, bg_red),
                 (" "),
                 $($arg),*,
@@ -122,3 +122,4 @@ macro_rules! error {
         }
     };
 }
+
