@@ -1,45 +1,54 @@
 use colorful::*;
 
 /// Easy way to generate a string with different funky colors / styles
-/// 
+///
 /// Takes advantage of the [`colorful`] crate
-/// 
+///
 /// # Example
 /// ```
 /// use yauc::style;
 /// use colorful::*;
-/// 
+///
 /// // you can color text
 /// assert_eq!(style!("gaming", red), format!("{}", "gaming".red()));
 /// // you can have a `format!` be colored
 /// assert_eq!(style!(("n: {}", 3), red), format!("{}", format!("n: {}", 3).red()));
 /// ```
-/// 
+///
 /// # Arguments
 ///  - str
 ///         - literal: `"gaming"`, `"hi"` etc.
 ///         - format: `("n: {}", 3)` -> `"n: 3"`
-///  - foreground (opt.): 
+///  - foreground (opt.):
 ///         - `red`, `green`, `blue` etc.
-///         - `rgb(255, 0, 0)` 
+///         - `rgb(255, 0, 0)`
 ///         - `hsl(0, 100%, 50%)`
 ///         - `color(Red)`
 ///  - background (opt.):
-///         - bg_red`, `bg_green`, `bg_blue` etc. 
-///         - `bg_rgb(255, 0, 0))` 
+///         - bg_red`, `bg_green`, `bg_blue` etc.
+///         - `bg_rgb(255, 0, 0))`
 ///         - `bg_hsl(0, 100%, 50%)`
 ///         - `bg_color(Red)`
 ///  - style (opt.):
-///        - `bold`, `underlined` etc. 
-/// 
+///        - `bold`, `underlined` etc.
+///
 /// see [`colorful::Colorful`]: https://docs.rs/colorful/0.2.1/colorful/trait.Colorful.html
 /// for the names of the different colors and styles you can use (not yet all implemented)
-/// 
+///
 /// TODO: implement gradient
-/// 
+///
 #[macro_export]
 macro_rules! style {
-    // base case: 
+    ($($arg:tt)*) => {{
+        #[allow(unused_imports)]
+        use colorful::Colorful;
+        $crate::_style_internal!($($arg)*)
+    }};
+}
+
+#[macro_export]
+macro_rules! _style_internal {
+    // base case:
     ($str:expr $(,)*) => {
         format!("{}", $str)
     };
@@ -59,7 +68,7 @@ macro_rules! style {
     ($str:expr, $method:ident, $($tail:tt)*) => {
         style!($str.$method(), $($tail)*)
     };
-    
+
     // case with 1 method & an argument
     ($str:expr, $method:ident($arg:ident) $(,)*) => {
         style!($str.$method(Color::$arg))
@@ -103,16 +112,8 @@ macro_rules! style {
 
 #[test]
 fn test_style() {
-    assert_eq!(
-        style!("gaming"),
-        format!("{}", "gaming"),
-        "sanity check"
-    );
-    assert_eq!(
-        style!("gaming", red),
-        format!("{}", "gaming".red()),
-        "1 method test"
-    );
+    assert_eq!(style!("gaming"), format!("{}", "gaming"), "sanity check");
+    assert_eq!(style!("gaming", red), format!("{}", "gaming".red()), "1 method test");
     assert_eq!(
         style!("gaming", red, bg_blue),
         format!("{}", "gaming".red().bg_blue()),
@@ -124,15 +125,11 @@ fn test_style() {
         "test with format string"
     );
     assert_eq!(
-        style!(("n: {}", 3), red), 
-        format!("{}", format!("n: {}", 3).red()), 
+        style!(("n: {}", 3), red),
+        format!("{}", format!("n: {}", 3).red()),
         "test with format string"
     );
-    assert_eq!(
-        style!((3), red), 
-        format!("{}", format!("{}", 3).red()), 
-        "test with format string"
-    );
+    assert_eq!(style!((3), red), format!("{}", format!("{}", 3).red()), "test with format string");
     assert_eq!(
         style!("gaming", color(Red)),
         format!("{}", "gaming".color(Color::Red)),
@@ -155,4 +152,3 @@ fn test_style() {
     );
     // should be fairly confident it works now
 }
-

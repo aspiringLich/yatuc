@@ -1,6 +1,3 @@
-use colorful::Colorful;
-
-
 #[macro_export]
 macro_rules! _style_print_internal {
     (($arg:tt, $($styles:tt)+), $($tail:tt)*) => {
@@ -15,50 +12,54 @@ macro_rules! _style_print_internal {
     (($arg:tt, $($styles:tt)+)) => {
         print!("{}", yauc::style!($arg, $($styles)+));
     };
-    ($arg:tt, $($styles:tt)+) => {
+    ($arg:expr, $($styles:tt)+) => {
         print!("{}", yauc::style!($arg, $($styles)+));
+    };
+    (($($arg:tt)*), $($styles:tt)+) => {
+        print!("{}", yauc::style!(($($arg)*), $($styles)+));
     };
     ($arg:expr) => {
         print!("{}", yauc::style!($arg));
     };
 }
 
-
 /// see [`crate::style`]
-/// 
+///
 /// basically allows you to run `style!` multiple times in a succinct way
-/// 
+///
 /// # Example
-/// 
-/// ```no_run
-/// use yauc::{style, style_print};
+///
+/// ```
+/// # #[macro_use] extern crate yauc;
+/// # fn main() {
 /// style_print!(
 ///     ("gaming "),
-///     ("testing", red),
+///     ("testing", red)
 /// );
-/// 
 /// // is equivalent to
 /// style!("gaming ");
 /// style!("testing", red);
+/// # }
 /// ```
 #[macro_export]
 macro_rules! style_print {
     ($($arg:tt)*) => {
-        use ::colorful::Colorful as _;
         yauc::_style_print_internal!($($arg)*)
     }
 }
 
 /// see [`crate::style`]
-/// 
-/// this macro extends on `style_print!` by 
+///
+/// this macro extends on `style_print!` by
 /// adding stuff around it to be more convenient for logging
-/// 
+///
 /// # Example
-/// 
+///
 /// ```
-/// use yauc::info;
-/// info!("ohmahgahd my program is doing something");
+/// # #[macro_use] extern crate yauc;
+/// # fn main() {
+/// info!("ohmahgahd my program is doing something", red);
+/// # }
 /// // outputs:
 /// // [22/11/17 16:53:09.927]INFO: ohmahgahd my program is doing something\n
 /// ```
@@ -79,15 +80,17 @@ macro_rules! info {
 }
 
 /// see [`crate::style`]
-/// 
-/// this macro extends on `style_print!` by 
+///
+/// this macro extends on `style_print!` by
 /// adding stuff around it to be more convenient for logging
-/// 
+///
 /// # Example
-/// 
-/// ```no_run
-/// use yauc::warn;
-/// warn!("ohmahgahd my program is doing something");
+///
+/// ```
+/// # #[macro_use] extern crate yauc;
+/// # fn main() {
+/// warn!("ohmahgahd my program is doing something", green);
+/// # }
 /// // outputs:
 /// // [22/11/17 16:53:09.927]WARN: ohmahgahd my program is doing something\n
 /// ```
@@ -108,14 +111,17 @@ macro_rules! warn {
 }
 
 /// see [`crate::style`]
-/// 
-/// this macro extends on `style_print!` by 
+///
+/// this macro extends on `style_print!` by
 /// adding stuff around it to be more convenient for logging
-/// 
+///
 /// # Example
-/// 
-/// ```no_run
-/// error!("ohmahgahd my program is doing something");
+///
+/// ```
+/// # #[macro_use] extern crate yauc;
+/// # fn main() {
+/// error!("ohmahgahd my program is doing something", blue);
+/// # }
 /// // outputs:
 /// // [22/11/17 16:53:09.927]ERROR: ohmahgahd my program is doing something\n
 /// ```
@@ -134,4 +140,3 @@ macro_rules! error {
         }
     };
 }
-
