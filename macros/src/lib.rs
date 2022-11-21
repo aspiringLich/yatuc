@@ -29,11 +29,13 @@ fn unwrap_inner(input: TokenStream) -> TokenStream {
 ///
 /// # Example
 ///
-/// ```ignore
+/// ```
+/// use macros::unwrap;
+///
 /// #[unwrap]
 /// fn normal_fn() {
 ///     let s = "does it detect this question mark? (no)";
-///     println!(s);
+///     println!("{}", s);
 ///     let x: Result<i32, ()> = Ok(23);
 ///     x?; // gets replaced with x.unwrap();
 /// }

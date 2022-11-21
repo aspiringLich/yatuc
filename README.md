@@ -33,10 +33,12 @@ error!("AAAAAAAA");
 Have you every written a function and were too lazy to have it return `Result<T, E>` but still wanted to use the `?` operator? I spent an hour figuring out `proc-macro` to make this and you will use it and like it.
 
 ```rs
+use yauc::macros::unwrap;
+
 #[unwrap]
 fn normal_fn() {
   let s = "does it detect this question mark? (no)";
-  println!(s);
+  println!("{}", s);
   let x: Result<i32, ()> = Ok(23);
   x?; // gets replaced with x.unwrap();
 }
