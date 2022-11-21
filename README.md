@@ -36,10 +36,12 @@ Have you every written a function and were too lazy to have it return `Result<T,
 use yauc::macros::unwrap;
 
 #[unwrap]
-fn normal_fn() {
+fn normal_fn() -> i32 {
   let s = "does it detect this question mark? (no)";
   println!("{}", s);
   let x: Result<i32, ()> = Ok(23);
-  x?; // gets replaced with x.unwrap();
+  return x?; // gets replaced with x.unwrap();
 }
+
+assert_eq!(normal_fn(), 23);
 ```
