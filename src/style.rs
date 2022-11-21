@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use colorful::*;
 
 /// Easy way to generate a string with different funky colors / styles
