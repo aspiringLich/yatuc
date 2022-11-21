@@ -3,9 +3,9 @@
 Yet another utilities crate. This crate provides re-exports of many crates and functions I commonly find myself using and also provides some of its own utility as well (see below).
 
 ## Features
-### logging
+### logging / style
 
-Ever felt like the many, many, many other logging crates just weren't sufficient? No? Well here's my addition to the pile anyway.
+Ever felt like the many, many, many other logging crates just weren't sufficient? Did you want yet another ANSI helper crate? No? Well here's my addition to the pile anyway.
 
 These are literally the first actual macros ive ever written so they're probably absolutely terrible.
 
@@ -26,4 +26,18 @@ error!("AAAAAAAA");
 [22/11/17 16:53:09.928]WARN: sounds like its almost time to... panic!
 [22/11/17 16:53:09.930]ERROR: AAAAAAAA
 */
+```
+
+### unwrap
+
+Have you every written a function and were too lazy to have it return `Result<T, E>` but still wanted to use the `?` operator? I spent an hour figuring out `proc-macro` to make this and you will use it and like it.
+
+```rs
+#[unwrap]
+fn normal_fn() {
+  let s = "does it detect this question mark? (no)";
+  println!(s);
+  let x: Result<i32, ()> = Ok(23);
+  x?; // gets replaced with x.unwrap();
+}
 ```

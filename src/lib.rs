@@ -11,9 +11,11 @@ pub extern crate pretty_assertions;
 pub extern crate tracing;
 pub extern crate wyz;
 
+pub mod log;
 pub mod prelude;
 pub mod style;
-pub mod log;
+
+pub extern crate macros;
 
 // pub fn add(left: usize, right: usize) -> usize {
 //     left + right

@@ -8,5 +8,6 @@ pub use num_enum::{FromPrimitive, IntoPrimitive};
 pub use pretty_assertions as pretty;
 pub use wyz::fmt::{FmtDisplay, FmtList};
 
+pub use crate::macros::unwrap;
 pub use crate::{error, info, warn};
 pub use crate::{style, style_print};
